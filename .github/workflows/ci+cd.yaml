@@ -9,8 +9,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   ci:
@@ -42,7 +40,8 @@ jobs:
       - name: Define image metadata
         id: meta
         run: |
-          echo "tag=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" >> $GITHUB_OUTPUT
+          REPO=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "tag=${{ env.REGISTRY }}/$REPO:${{ github.sha }}" >> $GITHUB_OUTPUT
 
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
