@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: demo-server
-          image: PLACEHOLDER
+          image: ""
           ports:
             - name: http
               containerPort: 8080
