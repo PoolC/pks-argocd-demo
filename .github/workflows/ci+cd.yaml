@@ -78,7 +78,7 @@ jobs:
 
       - name: Patch kubernetes manifest with image tag
         run: |
-          IMAGE="${{ needs.ci.outputs.tag }}"
+          export IMAGE="${{ needs.ci.outputs.tag }}"
           echo "Patching image: $IMAGE"
           yq e '.spec.template.spec.containers[0].image = strenv(IMAGE)' -i manifests/deployment.yaml
 
