@@ -3,11 +3,14 @@ name: CI/CD - Push Image & Update Manifests
 on:
   push:
     branches: ["main"]
+    # Skip this workflow when only k8s manifest files change.
+    # Saves resources by skipping unnecessary image builds.
     paths-ignore:
       - manifests/**
   workflow_dispatch:
 
 env:
+  # Use GitHub Container registry (GHCR).
   REGISTRY: ghcr.io
 
 jobs:
@@ -37,6 +40,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Use the latest commit hash as a tag.
       - name: Define image metadata
         id: meta
         run: |
@@ -76,6 +80,7 @@ jobs:
           wget "https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_amd64" -O /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
 
+      # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/passing-information-between-jobs#example-defining-outputs-for-a-job
       - name: Patch kubernetes manifest with image tag
         run: |
           export IMAGE="${{ needs.ci.outputs.tag }}"
