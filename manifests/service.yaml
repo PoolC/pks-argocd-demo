@@ -4,6 +4,8 @@ kind: Service
 metadata:
   name: demo-server
   namespace: pks-argocd-demo
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   type: ClusterIP
   ports:
