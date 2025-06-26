@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: demo-server
-          image: "ghcr.io/poolc/pks-argocd-demo:8c3037a6c47605cc4c4bb6f2159838a60a3f8f95"
+          image: "ghcr.io/poolc/pks-argocd-demo:dbdedcb360abab5adc59d32b378f84c1dbcceb08"
           ports:
             - name: http
               containerPort: 8080
