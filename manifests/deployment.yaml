@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-server
+  template:
+    metadata:
+      labels:
+        app: demo-server
+    spec:
+      containers:
+        - name: demo-server
+          image: PLACEHOLDER
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 100m
+            limits:
+              memory: 64Mi
+              cpu: 100m
